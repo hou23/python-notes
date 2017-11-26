@@ -22,24 +22,24 @@ gdp = pd.Series(gdp_values)
 # Change False to True for each block of code to see what it does
 
 # Accessing elements and slicing
-if True:
+if False:
     print(life_expectancy[0])
     print(gdp[3:6])
 
 # Looping
-if True:
+if False:
     for country_life_expectancy in life_expectancy:
         print('Examining life expectancy {}'.format(country_life_expectancy))
 
 # Pandas functions
-if True:
+if False:
     print(life_expectancy.mean())
     print(life_expectancy.std())
     print(gdp.max())
     print(gdp.sum())
 
 # Vectorized operations and index arrays
-if True:
+if False:
     a = pd.Series([1, 2, 3, 4])
     b = pd.Series([1, 2, 1, 2])
 
@@ -71,7 +71,13 @@ def variable_correlation(variable1, variable2):
     This is because 1 is below its mean but 7 is above its mean, and
     so on.
     '''
-    num_same_direction = None  # Replace this with your code
-    num_different_direction = None  # Replace this with your code
 
-    return (num_same_direction, num_different_direction)
+    both_above = (variable1 > variable1.mean()) & (variable2 > variable2.mean())
+    both_below = (variable1 < variable1.mean()) & (variable2 < variable2.mean())
+    num_same_direction = (both_above | both_below).sum()  # Replace this with your code
+    num_different_direction = len(variable1) - num_same_direction  # Replace this with your code
+
+    return num_same_direction, num_different_direction
+
+
+print(variable_correlation(life_expectancy, gdp))
